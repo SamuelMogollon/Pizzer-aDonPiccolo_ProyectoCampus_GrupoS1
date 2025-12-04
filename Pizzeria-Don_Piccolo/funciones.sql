@@ -22,7 +22,7 @@ BEGIN
 END; //
 DELIMITER ;
 
-SELECT calcularTotalPedido(id) AS TotalPedido;
+SELECT calcularTotalPedido(1) AS TotalPedido;
 
 --2.Función para calcular la ganancia neta diaria (ventas - costos de ingredientes).
 

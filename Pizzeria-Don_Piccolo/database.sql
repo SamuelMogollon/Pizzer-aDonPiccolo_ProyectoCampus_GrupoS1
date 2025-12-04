@@ -1,9 +1,9 @@
---Creación de base de datos
+
 CREATE DATABASE pizzeria_don_piccolo;
 
 USE pizzeria_don_piccolo;
 
---Creación de tabla Persona--
+
 CREATE TABLE Persona (
     id INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50),
@@ -13,19 +13,21 @@ CREATE TABLE Persona (
     PRIMARY KEY(id)
 );
 
---Creación de tabla Cliente--
+
 CREATE TABLE Cliente (
     id INT NOT NULL,
+    PRIMARY KEY(id),
     FOREIGN KEY(id) REFERENCES Persona(id)
 );
 
---Creación de tabla Vendedor--
+
 CREATE TABLE Vendedor (
     id INT NOT NULL,
+    PRIMARY KEY(id),
     FOREIGN KEY(id) REFERENCES Persona(id)
 );
 
---Creación de tabla zonaAsignada--
+
 CREATE TABLE zonaAsignada (
     idZona INT NOT NULL AUTO_INCREMENT,
     zona VARCHAR(50),
@@ -33,7 +35,7 @@ CREATE TABLE zonaAsignada (
     PRIMARY KEY(idZona)
 );
 
---Creación de tabla Repartidor--
+
 CREATE TABLE Repartidor (
     id INT NOT NULL ,
     idZona INT,
@@ -43,16 +45,14 @@ CREATE TABLE Repartidor (
     FOREIGN KEY(idZona) REFERENCES zonaAsignada(idZona)
 );
 
---Creación de tabla Pizzas--
 CREATE TABLE Pizzas (
     idPizza INT NOT NULL AUTO_INCREMENT,
     tamano VARCHAR(50),
     precioBase DOUBLE,
     tipo VARCHAR(50),
     PRIMARY KEY(idPizza)
-)
+);
 
---Creación de tabla historialPrecios--
 CREATE TABLE historialPrecios (
     idHistorial INT NOT NULL AUTO_INCREMENT ,
     idPizza INT,
@@ -63,7 +63,7 @@ CREATE TABLE historialPrecios (
     FOREIGN KEY (idPizza) REFERENCES Pizzas(idPizza)
 );
 
---Creación de tabla Ingrediente--
+
 CREATE TABLE Ingrediente (
     idIngrediente INT NOT NULL AUTO_INCREMENT,
     nombreIngrediente VARCHAR(50),
@@ -72,7 +72,6 @@ CREATE TABLE Ingrediente (
     PRIMARY KEY(idIngrediente)
 );
 
---Creación de tabla pizzaIngrediente--
 CREATE TABLE pizzaIngrediente (
     idPizza INT NOT NULL,
     idIngrediente INT,
@@ -82,14 +81,12 @@ CREATE TABLE pizzaIngrediente (
     FOREIGN KEY (idIngrediente) REFERENCES Ingrediente(idIngrediente)
 );
 
---Creación de tabla metodoPago--
 CREATE TABLE metodoPago (
     idPago INT AUTO_INCREMENT,
     metodo VARCHAR(50),
     PRIMARY KEY(idPago)
 );
 
---Creación de tabla Pedidos--
 CREATE TABLE Pedidos (
     idPedido INT AUTO_INCREMENT,
     idCliente INT,
@@ -106,7 +103,6 @@ CREATE TABLE Pedidos (
     FOREIGN KEY (idMetodoPago) REFERENCES metodoPago(idPago)
 );
 
---Creación de tabla detallePedido--
 CREATE TABLE detallePedido (
     idDetallePedido INT AUTO_INCREMENT,
     idPedido INT,
@@ -118,7 +114,6 @@ CREATE TABLE detallePedido (
     FOREIGN KEY (idPizza) REFERENCES Pizzas(idPizza)
 );
 
---Creación de tabla Domicilios--
 CREATE TABLE Domicilios (
     idDomicilio INT AUTO_INCREMENT,
     idPedido INT UNIQUE,
@@ -149,7 +144,7 @@ INSERT INTO Persona (nombre, telefono, direccion, correo) VALUES
 ('Felipe Herrera', '3172233445', 'Cra 15 #44-60', 'felipe.herrera@gmail.com'),
 ('Camila Mendoza', '3167788990', 'Av 8 #55-33', 'camila.mendoza@hotmail.com');
 
-INSERT INTO Cliente (idCliente) VALUES
+INSERT INTO Cliente (id) VALUES
 (1),
 (2),
 (3);
@@ -183,20 +178,6 @@ INSERT INTO Pizzas (tamano, precioBase, tipo) VALUES
 ('Mediana', 26000, 'Vegetariana'),
 ('Grande', 36000, 'Vegetariana');
 
-
-INSERT INTO historialPrecios (idPizza, precioAnterior, precioNuevo, fechaCambio) VALUES
-(1, 13000, 14000, '2025-01-10 14:22:00'),
-(2, 22000, 24000, '2025-01-11 10:15:00'),
-(3, 32000, 34000, '2025-01-11 18:40:00'),
-
-(4, 16000, 17000, '2025-01-12 11:10:00'),
-(5, 25000, 27000, '2025-01-12 16:25:00'),
-(6, 35000, 37000, '2025-01-13 09:55:00'),
-
-(7, 15000, 16000, '2025-01-14 13:35:00'),
-(8, 24000, 26000, '2025-01-14 17:45:00'),
-(9, 34000, 36000, '2025-01-15 12:20:00');
-
 INSERT INTO Ingrediente (nombreIngrediente, precioIngrediente, cantidad) VALUES
 ('Queso Mozzarella', 3000, 50),
 ('Jamón', 2500, 40),
@@ -210,7 +191,6 @@ INSERT INTO Ingrediente (nombreIngrediente, precioIngrediente, cantidad) VALUES
 ('Salsa de la Casa', 500, 100);
 
 INSERT INTO pizzaIngrediente (idPizza, idIngrediente, cantidadUso) VALUES
--- Pizzas Clásicas (1,2,3)
 (1, 2, 1), 
 (1, 1, 2), 
 (1, 3, 1),
@@ -223,7 +203,6 @@ INSERT INTO pizzaIngrediente (idPizza, idIngrediente, cantidadUso) VALUES
 (3, 1, 2), 
 (3, 3, 1),
 
--- Pizzas Especiales (4,5,6)
 (4, 2, 1),
 (4, 1, 2),
 (4, 4, 1),
@@ -242,7 +221,6 @@ INSERT INTO pizzaIngrediente (idPizza, idIngrediente, cantidadUso) VALUES
 (6, 5, 1),
 (6, 6, 1),
 
--- Pizzas Vegetarianas (7,8,9)
 (7, 2, 1),
 (7, 1, 2),
 (7, 5, 1),
