@@ -1,7 +1,7 @@
 
-CREATE DATABASE pizzeria_don_piccolo;
+CREATE DATABASE pizzeria_don_piccolo1;
 
-USE pizzeria_don_piccolo;
+USE pizzeria_don_piccolo1;
 
 
 CREATE TABLE Persona (
